@@ -7,7 +7,7 @@ parameters:
   _param:
     horizon_site_branding: OpenStack Dashboard
     horizon_dashboard_theme: mirantis
-    openstack_version: liberty
+    openstack_version: mitaka
   linux:
     network:
       interface:

@@ -4,6 +4,7 @@ classes:
 - system.linux.system.single
 - system.openssh.server.team.tcpcloud
 - system.openssh.server.team.mmo_devops
+- cluster.my._team
 - cluster.my.infra
 - cluster.my.openstack
 - cluster.my.opencontrail
@@ -40,8 +41,11 @@ parameters:
 
     # openstack service addresses
     openstack_proxy_address: 172.31.110.10
+    openstack_proxy_public_address: 172.31.111.10 
     openstack_proxy_node01_address: 172.31.110.11
     openstack_proxy_node02_address: 172.31.110.12
+    openstack_proxy_node01_public_address: 172.31.111.11
+    openstack_proxy_node02_public_address: 172.31.111.12
     openstack_control_address: 172.31.110.15
     openstack_control_node01_address: 172.31.110.16
     openstack_control_node02_address: 172.31.110.17
@@ -162,7 +166,7 @@ parameters:
       proto: static
       address: ${_param:single_address}
       netmask: 255.255.255.0
-      gateway: 172.31.110.1
       name_servers:
         - 8.8.8.8
         - 8.8.4.4
+        - 172.18.80.136

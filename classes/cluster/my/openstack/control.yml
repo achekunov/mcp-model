@@ -1,5 +1,5 @@
 classes:
-- system.linux.system.repo.mcp10
+- system.linux.system.repo.mcp.openstack
 - system.linux.system.repo.tcp_extra
 - system.linux.system.repo.glusterfs
 - system.memcached.server.single
@@ -32,3 +32,20 @@ parameters:
     network:
       interface:
         eth1: ${_param:linux_single_interface}
+  keystone:
+     server:
+       service_name: apache2
+  
+  apache:
+    server:
+      enabled: true
+      default_mpm: event
+      site:
+        keystone:
+          enabled: true
+          type: keystone
+          name: wsgi
+          host:
+            name: ${linux:network:fqdn}
+      modules:
+        - wsgi

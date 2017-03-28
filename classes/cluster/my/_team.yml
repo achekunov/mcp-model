@@ -22,3 +22,26 @@
 #  public_keys:
 #    customer:
 #      key: <public_key>
+parameters:
+  linux:
+    system:
+      user:
+        arh:
+          enabled: true
+          name: arh
+          sudo: true
+          full_name: Admin
+          home: /home/arh
+  openssh:
+    server:
+      enabled: true
+      user:
+        arh:
+          enabled: true
+          public_keys:
+          - ${public_keys:arh}
+          user: ${linux:system:user:arh}
+  public_keys:
+    arh:
+      key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDBIg5OmAE4e/PYWaJc2Zs6P59HguM6xYCOb4BwqBQyHyLMJhGKlbV1WQ+SZ01hFlyw4XcVwQpgkiu/ZbcuZ0fNbdOnPa/VU8sgC5tUbpHS5KBFnGytI8iwJCCViPzADxNGN99kcprURz1+LzfZEehD6BrIhBLRUrR+A4viJNsl/MrcGzI5+VWOmBDGOjBHo1ZTN+XjgT5w+fan/eKAqGWpNnjMiK6pkY9sYM128ibP3r2x3gLiZMdWMZklXyyKn/Y+O1mlr+q+kpj2EvwuoX9kuXhX6YBO0BpFYwnAOUh1FE+fW04F04CCXu7rv6UHkIJRatIN62xETadCX6hFYm7dklc6cz/jRLBfsduSg985qVGizCJo0vb34E9/zoxhbVAJfNKNfSYGC4FwB3KMIjwlAW/Z5V3KFj1Jfz7eY3jzS+adn36tyvso/XPvgjLdPAnuZMQLhsK7JnCEUh+9GFItxl4cqY6Z3uvDT1nQ7ZsPrYPmXV+F4RMmDsEb0GjNMJGm4iTEJB8oEnozUbNP9J6gVtNmJMW2IN8oAVlxgrZde0M56APMryXagB3k6AzJzasciO7cFm7g21C08HhAO1627v3e57bdPzg+5EmqohlVNm55Q7NaSJV0Aoxtt2kfOK1SdUXr94JSHZFowol1l/3aN0V3LKoISUK2s5KLUkzhOw== arh@achekunov
+

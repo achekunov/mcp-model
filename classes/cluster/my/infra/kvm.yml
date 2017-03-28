@@ -1,5 +1,5 @@
 classes:
-- system.linux.system.repo.mcp10
+- system.linux.system.repo.mcp.openstack
 - service.keepalived.cluster.single
 - system.glusterfs.server.volume.glance
 - system.glusterfs.server.volume.keystone
@@ -28,65 +28,72 @@ parameters:
     cluster_node01_address: ${_param:infra_kvm_node01_address}
     cluster_node02_address: ${_param:infra_kvm_node02_address}
     cluster_node03_address: ${_param:infra_kvm_node03_address}
-    keepalived_vip_interface: br_ctl
+    keepalived_vip_interface: br-ctrl
     keepalived_vip_virtual_router_id: 69
-    deploy_nic: enp2s0f0
-    primary_first_nic: enp2s0f1
-    primary_second_nic: enp5s0f0
+    deploy_nic: ens3
+    primary_first_nic: ens4
+    primary_second_nic: ens5
+    primary_third_nic: ens6
+    primary_fourth_nic: ens7
   salt:
     control:
       size: #RAM 4096,8192,16384,32768,65536
       ##Default production sizing
         openstack.control:
-          cpu: 8
-          ram: 32768
+          cpu: 4
+          ram: 4096
           disk_profile: small
-          net_profile: default
+          net_profile: newdefault
         openstack.database:
-          cpu: 8
-          ram: 16384
+          cpu: 4
+          ram: 4096
           disk_profile: large
-          net_profile: default
+          net_profile: newdefault
         openstack.message_queue:
-          cpu: 8
-          ram: 32768
+          cpu: 2
+          ram: 4096
           disk_profile: small
-          net_profile: default
+          net_profile: newdefault
         openstack.telemetry:
-          cpu: 8
-          ram: 32768
+          cpu: 4
+          ram: 4096
           disk_profile: xxlarge
-          net_profile: default
+          net_profile: newdefault
         openstack.proxy:
-          cpu: 4
-          ram: 8192
+          cpu: 2
+          ram: 4096
           disk_profile: small
-          net_profile: default
+          net_profile: newdefault
         opencontrail.control:
-          cpu: 8
-          ram: 32768
+          cpu: 4
+          ram: 4096
           disk_profile: small
-          net_profile: default
+          net_profile: newdefault
         opencontrail.analytics:
-          cpu: 8
-          ram: 32768
+          cpu: 4
+          ram: 4096
           disk_profile: large
-          net_profile: default
+          net_profile: newdefault
         stacklight.log:
-          cpu: 4
-          ram: 8192
+          cpu: 2
+          ram: 4096
           disk_profile: xxlarge
-          net_profile: default
+          net_profile: newdefault
         stacklight.server:
-          cpu: 4
-          ram: 8192
+          cpu: 2
+          ram: 4096
           disk_profile: small
-          net_profile: default
+          net_profile: newdefault
         stacklight.telemetry:
-          cpu: 4
-          ram: 8192
+          cpu: 2
+          ram: 4096
           disk_profile: xxlarge
-          net_profile: default
+          net_profile: newdefault
+        cicd.control:
+          cpu: 2
+          ram: 2048
+          disk_profile: xxlarge
+          net_profile: newdefault
       cluster:
         internal:
           node:
@@ -94,90 +101,106 @@ parameters:
               provider: kvm03.${_param:cluster_domain}
   ## TO BE DONE
 
-  # virt:
-  #   nic:
-  #     default:
-  #       eth1:
-  #         bridge: br_mgm
-  #       eth0:
-  #         bridge: br_ctl
-  #     opencontrail:
-  #       - name: eth0
-  #         bridge: br_mgm
-  #         model: virtio
-  #       - name: eth1
-  #         bridge: br_ctl
-  #         model: virtio
-  #       - name: eth2
-  #         bridge: br_data
-  #         model: virtio
-  # linux:
-  #   network:
-  #     interface:
-  #       eth0:
-  #         enabled: true
-  #         type: eth
-  #         proto: manual
-  #         name: ${_param:deploy_nic}
-  #       eth1:
-  #         enabled: true
-  #         type: slave
-  #         proto: manual
-  #         name: ${_param:primary_first_nic}
-  #         master: bond0
-  #       eth2:
-  #         enabled: true
-  #         type: slave
-  #         proto: manual
-  #         name: ${_param:primary_second_nic}
-  #         master: bond0
-  #       br_mgm:
-  #         enabled: true
-  #         proto: static
-  #         type: bridge
-  #         address: ${_param:deploy_address}
-  #         netmask: 255.255.255.192
-  #         gateway: 172.16.49.65
-  #         name_servers:
-  #         - 8.8.8.8
-  #         - 8.8.4.4
-  #         use_interfaces:
-  #         - ${_param:deploy_nic}
-  #       bond0:
-  #         enabled: true
-  #         proto: manual
-  #         type: bond
-  #         use_interfaces:
-  #         - ${_param:primary_first_nic}
-  #         - ${_param:primary_second_nic}
-  #         slaves: ${_param:primary_first_nic} ${_param:primary_second_nic}
-  #         mode: active-backup
-  #       bond0.2422:
-  #         enabled: true
-  #         proto: manual
-  #         type: vlan
-  #         use_interfaces:
-  #         - bond0
-  #       bond0.2423:
-  #         enabled: true
-  #         proto: manual
-  #         type: vlan
-  #         use_interfaces:
-  #         - bond0
-  #       br_ctl:
-  #         enabled: true
-  #         type: bridge
-  #         proto: static
-  #         address: ${_param:single_address}
-  #         netmask: 255.255.255.0
-  #         use_interfaces:
-  #         - bond0.2422
-  #       br_data:
-  #         enabled: true
-  #         type: bridge
-  #         proto: manual
-  #         use_interfaces:
-  #         - bond0.2423
+  virt:
+    nic:
+      newdefault:
+        - name: eth0
+          bridge: br-pxe
+          model: virtio
+        - name: eth1
+          bridge: br-ctrl
+          model: virtio
+        - name: eth2
+          bridge: br-proxy
+          model: virtio
+        - name: eth3
+          bridge: br-data
+          model: virtio
+        - name: eth4
+          bridge: br-data2
+          model: virtio
+      opencontrail:
+        - name: eth0
+          bridge: br_mgm
+          model: virtio
+        - name: eth1
+          bridge: br_ctl
+          model: virtio
+        - name: eth3
+          bridge: br_data
+          model: virtio
+  linux:
+    network:
+      interface:
+        ens3:
+          enabled: true
+          type: eth
+          proto: manual
+          mtu: 8950
+          name: ${_param:deploy_nic}
+        ens4:
+          enabled: true
+          type: eth
+          proto: manual
+          mtu: 8950
+          name: ${_param:primary_first_nic}
+        ens5:
+          enabled: true
+          type: eth
+          proto: manual
+          mtu: 8950
+          name: ${_param:primary_second_nic}
+        ens6:
+          enabled: true
+          type: eth
+          proto: manual
+          mtu: 8950
+          name: ${_param:primary_third_nic}
+        ens7:
+          enabled: true
+          type: eth
+          proto: manual
+          mtu: 8950
+          name: ${_param:primary_fourth_nic}
+        br_pxe:
+          enabled: true
+          proto: static
+          type: bridge
+          address: ${_param:deploy_address}
+          netmask: 255.255.255.0
+          gateway: 172.31.35.3
+          name_servers:
+          - 172.18.80.136
+          - 8.8.8.8
+          - 8.8.4.4
+          use_interfaces:
+          - ${_param:deploy_nic}
+        br_ctrl:
+          enabled: true
+          type: bridge
+          proto: static
+          address: ${_param:single_address}
+          netmask: 255.255.255.0
+          use_interfaces:
+          - ${_param:primary_first_nic}
+        br_proxy:
+          enabled: true
+          type: bridge
+          proto: manual
+          use_interfaces:
+          - ${_param:primary_second_nic}
+        br_data:
+          enabled: true
+          type: bridge
+          proto: manual
+          use_interfaces:
+          - ${_param:primary_third_nic}
+        br_data2:
+          enabled: true
+          type: bridge
+          proto: manual
+          use_interfaces:
+          - ${_param:primary_fourth_nic}
   #   system:
   #     package:
   #       linux-image-4.8.0-39-generic:

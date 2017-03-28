@@ -5,9 +5,9 @@ parameters:
     cicd_control_node02_address: 172.31.110.62
     cicd_control_node03_address: 172.31.110.63
     cicd_control_hostname: ci.maas
-    cicd_control_node01_hostname: foo1
-    cicd_control_node02_hostname: foo2
-    cicd_control_node03_hostname: foo3
+    cicd_control_node01_hostname: cid01
+    cicd_control_node02_hostname: cid02
+    cicd_control_node03_hostname: cid03
   linux:
     network:
       host:

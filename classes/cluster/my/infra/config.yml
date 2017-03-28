@@ -38,24 +38,27 @@ parameters:
       node:
         infra_kvm_node01:
           params:
+            linux_system_codename: xenial
             keepalived_vip_priority: 100
         infra_kvm_node02:
           params:
+            linux_system_codename: xenial
             keepalived_vip_priority: 101
         infra_kvm_node03:
           params:
+            linux_system_codename: xenial
             keepalived_vip_priority: 102
         openstack_telemetry_node01:
           params:
-            linux_system_codename: xenial
+            linux_system_codename: trusty
             keepalived_vip_priority: 100
         openstack_telemetry_node02:
           params:
-            linux_system_codename: xenial
+            linux_system_codename: trusty
             keepalived_vip_priority: 102
         openstack_telemetry_node03:
           params:
-            linux_system_codename: xenial
+            linux_system_codename: trusty
             keepalived_vip_priority: 103
         openstack_control_node01:
           classes:
@@ -63,6 +66,12 @@ parameters:
         openstack_database_node01:
           classes:
           - cluster.${_param:cluster_name}.openstack.database_init
+        openstack_proxy_node01:
+          params:
+            public_address: ${_param:openstack_proxy_node01_public_address}
+        openstack_proxy_node02:
+          params:
+            public_address: ${_param:openstack_proxy_node02_public_address}
         stacklight_log_node01:
           classes:
           - system.elasticsearch.client.single
