@@ -6,7 +6,7 @@ classes:
 - system.nova.compute.nfv.cpu_pinning
 
 
-- system.opencontrail.compute.dpdk
+#- system.opencontrail.compute.dpdk
 
 - system.nova.compute.cluster
 - system.opencontrail.compute.cluster
@@ -26,6 +26,52 @@ parameters:
     cluster_node03_address: ${_param:openstack_control_node03_address}
     opencontrail_compute_address: ${_param:single_address}
     nova_vncproxy_url: https://${_param:cluster_public_host}:6080
+  linux:
+    network:
+      interface:
+        eth0:
+          enabled: true
+          type: eth
+          proto: dhcp
+          mtu: 8950
+          name_servers:
+          - 172.18.80.136
+          - 8.8.8.8
+          - 8.8.4.4
+        eth1:
+          enabled: true
+          type: eth
+          proto: manual
+          mtu: 8950
+        eth2:
+          enabled: true
+          type: eth
+          proto: manual
+          mtu: 8950
+        eth3:
+          enabled: true
+          type: eth
+          proto: manual
+          mtu: 8950
+        eth4:
+          enabled: true
+          type: eth
+          proto: manual
+          mtu: 8950
+        vhost0:
+          enabled: true
+          type: eth
+          mtu: 8950
+          address: ${_param:single_address}
+          netmask: 255.255.255.0
+          pre_up_cmds:
+          - /usr/lib/contrail/if-vhost0
+          use_interfaces:
+          - eth3
+          name_servers:
+           - 8.8.8.8
+           - 8.8.4.4
+
 ##FIXME
  # linux:
  #   network:

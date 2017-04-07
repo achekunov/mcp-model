@@ -162,7 +162,7 @@ parameters:
           proto: manual
           mtu: 8950
           name: ${_param:primary_fourth_nic}
-        br_pxe:
+        br-pxe:
           enabled: true
           proto: static
           type: bridge
@@ -175,7 +175,7 @@ parameters:
           - 8.8.4.4
           use_interfaces:
           - ${_param:deploy_nic}
-        br_ctrl:
+        br-ctrl:
           enabled: true
           type: bridge
           proto: static
@@ -183,19 +183,19 @@ parameters:
           netmask: 255.255.255.0
           use_interfaces:
           - ${_param:primary_first_nic}
-        br_proxy:
+        br-proxy:
           enabled: true
           type: bridge
           proto: manual
           use_interfaces:
           - ${_param:primary_second_nic}
-        br_data:
+        br-data:
           enabled: true
           type: bridge
           proto: manual
           use_interfaces:
           - ${_param:primary_third_nic}
-        br_data2:
+        br-data2:
           enabled: true
           type: bridge
           proto: manual
