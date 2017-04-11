@@ -2,8 +2,8 @@ classes:
 - system.linux.system.repo.mcp.openstack
 - system.linux.system.repo.mcp.contrail
 
-- system.nova.compute.nfv.hugepages
-- system.nova.compute.nfv.cpu_pinning
+#- system.nova.compute.nfv.hugepages
+#- system.nova.compute.nfv.cpu_pinning
 
 
 #- system.opencontrail.compute.dpdk
