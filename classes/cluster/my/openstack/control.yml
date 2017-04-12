@@ -35,6 +35,12 @@ parameters:
   keystone:
      server:
        service_name: apache2
+  glance:
+    server:
+      workers: 1
+  nova:
+    controller:
+      workers: 1
   
   apache:
     server:
