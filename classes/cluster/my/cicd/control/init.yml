@@ -9,8 +9,6 @@ classes:
   - system.glusterfs.client.volume.mysql
   - system.glusterfs.client.volume.registry
  #- system.glusterfs.client.volume.salt
-  # Jenkins
-  - system.jenkins.client.user.admin
   # Docker
   - system.docker.host
   # Docker services
@@ -35,6 +33,7 @@ classes:
   - system.haproxy.proxy.listen.docker.visualizer
   - system.haproxy.proxy.listen.mysql
   - system.haproxy.proxy.listen.stats
+  - cluster.my
 
 parameters:
   _param:
@@ -52,10 +51,13 @@ parameters:
     cluster_public_host: ${_param:control_vip_address}
     salt_api_password: password
     # Docker images and versions
-    docker_registry_http_secret: MMMMMMMMMMMMMMMM
+    docker_registry_http_secret: 66EkJrTBY32i2Qwq
     # CI/CD service databases
-    mysql_admin_password: MMMMMMMMMMMMMMMM
-    mysql_gerrit_password: MMMMMMMMMMMMMMMM
+    mysql_admin_password: mbp3mOEQWRwXICpY
+    mysql_gerrit_password: gImJmZEDqPUaZnk1
+    admin_email: root@localhost
+    glusterfs_service_host: ${_param:infra_kvm_address} 
+    aptly_gpg_passphrase: gImJmZEDqPUaZnk1
 
     # Proxy
     cluster_ssl_certificate:
@@ -68,84 +70,51 @@ parameters:
     # Jenkins
     jenkins_slave_user: admin
     jenkins_client_user: admin
-    jenkins_admin_password: MMMMMMMMMMMMMMMM
+    jenkins_admin_password: Hym9Os1NWzhVrxiM
     jenkins_slave_password: ${_param:jenkins_admin_password}
     jenkins_client_password: ${_param:jenkins_admin_password}
     jenkins_admin_email: ${_param:admin_email}
-    jenkins_admin_public_key: #Need to automate#ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQD3hnJDKW4R+aXxdaSJSQmV4a6tRmRI1CECkccApr0h15dXGhgeRyrtMsXKpVkQpweQX+75rJHVcNvHpCsR3wLhS/vgOowQh+Xc7bvl9MzoYBGUw5VZyRD4HoHrp2FEUHQqwnOYubFdHBnOi6HZDdf1axFzjmymQX/XvuAd4vCmtW/wumaJ6tH/VlM57ik5jsWwKQIQZl7ODmlGusycuD5QEPade+cHEijGbLtRyMrP+BFJAzVmav2jeu1CtLD8AaKHB+mtfbHYhFkYhLlmFenztbB9S2kJhuSDjB4c8Xxj3N0O1rhKAJPi2o4LS8boa38EnTz55wq02/DxNMSgs9H0BFKK5qRuhaG4GBvwYC9HR/uzH4abFdNAr2kBLMbAo49qwJL4dfyY87T3JLSEUpg1Ycr31A2e1v8kBOCMipFOkOwlVm1F2P178YJmCcIl2NnzIvfI7SKvVgjgmoxfDZu55CMqf+W6hlMrchhGvXmTDFNfW7cr8ak4GCgZLUIkzWPRcgfwLN+328JhCgGeHfSkQBzMD4sZR0yw3Pc939gMXkRIsfDNnTJ8qZTDkiYfktUt3pRp8AudqQ++cf95nf2lTOyGehXkn7oHGAQfJ9mlSOTTM/e9shtT+jqsB5HW0BRVqtsm7cvyhYKQZCfWOhInBg4hfK5rJVGjCSLckTa4jQ==
-    jenkins_admin_private_key: #Need to automate#|
-      # -----BEGIN RSA PRIVATE KEY-----
-      # MIIJKAIBAAKCAgEA94ZyQyluEfml8XWkiUkJleGurUZkSNQhApHHAKa9IdeXVxoY
-      # Hkcq7TLFyqVZEKcHkF/u+ayR1XDbx6QrEd8C4Uv74DqMEIfl3O275fTM6GARlMOV
-      # WckQ+B6B66dhRFB0KsJzmLmxXRwZzouh2Q3X9WsRc45spkF/177gHeLwprVv8Lpm
-      # ierR/1ZTOe4pOY7FsCkCEGZezg5pRrrMnLg+UBD2nXvnBxIoxmy7UcjKz/gRSQM1
-      # Zmr9o3rtQrSw/AGihwfprX2x2IRZGIS5ZhXp87WwfUtpCYbkg4weHPF8Y9zdDta4
-      # SgCT4tqOC0vG6Gt/BJ08+ecKtNvw8TTEoLPR9ARSiuakboWhuBgb8GAvR0f7sx+G
-      # mxXTQK9pASzGwKOPasCS+HX8mPO09yS0hFKYNWHK99QNntb/JATgjIqRTpDsJVZt
-      # Rdj9e/GCZgnCJdjZ8yL3yO0ir1YI4JqMXw2bueQjKn/luoZTK3IYRr15kwxTX1u3
-      # K/GpOBgoGS1CJM1j0XIH8Czft9vCYQoBnh30pEAczA+LGUdMsNz3Pd/YDF5ESLHw
-      # zZ0yfKmUw5ImH5LVLd6UafALnakPvnH/eZ39pUzshnoV5J+6BxgEHyfZpUjk0zP3
-      # vbIbU/o6rAeR1tAUVarbJu3L8oWCkGQn1joSJwYOIXyuayVRowki3JE2uI0CAwEA
-      # AQKCAgACfDUVe4sBXzJNVFMMldEk0hlA4B4NpSOXtQL8fLAVcOayFy76ztgdfY8C
-      # 09orEqI+ztfFZfgo3nM2c+2Cxmxu+qZSwAO7/sFOEIz8aBLOmnhSuAv91Mj41MWV
-      # Kh8N4ojoDP/AHs0rFCcmLby4Qy1R53tLX7iziqDP97ikVCz6X4P6NMTmyZbGK4W2
-      # ZS/AxjAx7pd4tq5o/zgLX8DCKg9mGmV/e0j8hzAlnd3bmlp+8AysYP3eQ2C8jXVo
-      # YAwO261YEbpE5agtdla2qk56OeoZak+VUnaBg/szXurGe542GneVuI4tIAhcFLms
-      # X1xl5P5ne3SrRaiT3El1AoSe4G9RMNPPuUfVj6t8Wl6ON0I0xR00ZhJdwIUpUD0g
-      # WS445fCr7txOBYAJ974oe4fE08wopvgS+rCspcHTFmc6lSM0Fi0TrTqBwuSqPwlj
-      # Jal9l/jFGVCTISYT1XejV5IIncaEAFH8exfWPdRuYLiaid28u2YhdnAz1YyeXEJW
-      # 6e+8EoigSZR7PGpyY4mQ9R5Nu6vG+4b6AIKhDxVb+rs9K18ShFJQYV7Y8OeHE7Fg
-      # 0zmYHmgmp4SFaanXtzanTsda9XvkQ6l3jzjbB/Zy9W0lkht1YSjIzXwLsuwvU0ov
-      # t5JTozjKLYd/vvNLNEEechCzqN6skmjicTEo4WLOq/DnUyzYuQKCAQEA/m94O6Uy
-      # RjGY2K/6qiBLTSAXpT11rSuLfLyiia/sUgKlF1TVKaSxKbEmH8pOT/3fudadvi/Z
-      # AggZezRz5UVLLsGigmGHG4Yx/xq9SHSbtlgVuo+JsIeVY6SqzAPbBOozF+oko8nj
-      # NeagkxYtFveHgzCxo2yJ27isuR96a84z7ktptC9pzi82gq4fXqNnX7V86ltg6Gk9
-      # GpXiuUZGfJMKAlTjodShHYF/Jh3sjURVTIwS8LG4LZQ62HPgApwhiXqk+azLBRYj
-      # h4qq3yop/9pPz566aniamcQtoOdhxMW66/Xu6HPvxxPXkwSuiBizu2ATv0wR6pW3
-      # x53g37Su3ZZ5FwKCAQEA+QwZPwLMZGFUN0l+u1dWgXtPgP28y+YFk8RDSJsUD5PT
-      # EjIfe8jwbu0p2HbpJTwB9XvDnJ1yZ9hdtR+m5fa47P7+bgqU9Ivayt0VSHJmjPe4
-      # zbBwXZhifRn5a/SZ5TzlZxKVZCfFjBPBq0VOYSX+pM/c9qvKpO/NK2ffO11fQmwf
-      # S/Eba0NBjHPFrsSYBHezqpYG+cGKlZjSxdfpJO0gKc//QKdV1eE9n0yewpQ74QaN
-      # cO4BDju2cMHLM/5KhpBTwdiLuU/NOdihhdgDc9ovGw7di7IIQy6XYUvlMzfL67vQ
-      # dX7XRKlCzpKeeyBcPftvc1J1eVoIvxaOg9tmeTNZ+wKCAQBTJsbaZ1CY1BipqEl5
-      # U/iIChbwL7fHklWRvGw6Jz5KRwcBKv5HD8W+ZGCbPxh81/FH4LXItAZtvYvmUewW
-      # X6EEdM/RYGIxQpgQUQLPLRy+aOchA0vyXz0ZRXV0G0Z2wrtT83dp987DjM2phDPU
-      # L60f2MgVKqGbJy17iqgNl2QtWoP/GQexFIjyCEnEOg7MnplmVdrD2bDYgWeJOUhL
-      # 6hn5TRjfiIfnBq0xHdJzEIP38kc2Vj5k1u6sUqJA+BmVvnkwB6KJ1QRjhZP2Pude
-      # 8E/pAGzX4vZTjmODFFtFXYGLH+KmIU2ZeAiZyYvoenoyoGGTwR6R1cAsApK9SWVk
-      # kYqdAoIBAQDnACXaoEndQbnPnkgClLwUVcAksTYRGkZKDV0rV0yANmktE3jIZFU/
-      # TpPlyEXw13wpqqaB+jhHwhUJD1bLLtHQYaS1hPMs8Rv71p0LGbGtR4kOoH1ZEyMn
-      # TpRfYf3s91MBC+etgoZlq12T8zEEQy2yyWr3Edlgq1zuyeXxNmZJQei1k+oOz89Y
-      # 63mM5aTrX+wyaf4GY1Kb96hpAh+qtJeEsPzdh1jCja2OuI75hG0WB/HhsaEhBpnu
-      # dJJ6o3+U2QIXZzgSpsaAxULs1rQ9HT9cJamxDW1Eg06+XJs3qqVm/koY8ZHSif0B
-      # hlWhdx6YD0QM/4sfCDfcppuCCls+SDdJAoIBAGOmLLREQcl+ybvEkIcV/ZBEtTQG
-      # lkKx7qp7dn1EKNDS12iahNprSL/kW56oQExe2ASnnRT0Og7mXk5nD6SowqbUBqEg
-      # /KXRK+tujXHHnXq+lPPpOoCXZPRt0PxI10Nkutn8fYIfTu0oTbDp2K9nWP5vFhpP
-      # PkFlXvAGNZbZ69VgDmNTqJZ1tSGTJKJqy/t8h49XNKRKmzNkbHFroLbeI5RTsNcW
-      # +GWI3ciQTOkRCmaVFlMoQv/f8SFSRSfxk6lncb7gm9dS0j6Xvs+PgmHtNj1kNQk3
-      # W4N2eiliSdd5DY6NUs5HJcH8tsxUZ6omhJ/2E5JozQ8WeQdwbe3AvCYRbmU=
-      # -----END RSA PRIVATE KEY-----
+    jenkins_admin_public_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDVvxGYa8OW8Tao0HE1dsWJxwznNn6sw9mNEHXq8vYKd92vmwagmTiEYhN7wD02qX4a04nupyfqMJ73fR5xJk0z1EmyBk/dx9JClLgOsaMdr1Px+3aWDiAXpoa24s8PvA2n4UVz38/vMMjK1aixH5GOBStGaSh++bD2Ha1WT713bmpecLB61HZJmZmFqzlvwQS7A55oZiO58YEly6qEBJG2CVCmVks+fxGQ//dSpsmG6XEIpL7tcJ+bElhL6+0Ppd9cdAnydsBIw3TD5TTWudf4hy/h2IUOTpi/xr+WfZCWxvVHL36h6Is/TyYHzd5hQbgE9ElqAkgzfqCG6Ocucv4P
+    jenkins_admin_private_key: |
+      -----BEGIN RSA PRIVATE KEY-----
+      MIIEowIBAAKCAQEA1b8RmGvDlvE2qNBxNXbFiccM5zZ+rMPZjRB16vL2Cnfdr5sG
+      oJk4hGITe8A9Nql+GtOJ7qcn6jCe930ecSZNM9RJsgZP3cfSQpS4DrGjHa9T8ft2
+      lg4gF6aGtuLPD7wNp+FFc9/P7zDIytWosR+RjgUrRmkofvmw9h2tVk+9d25qXnCw
+      etR2SZmZhas5b8EEuwOeaGYjufGBJcuqhASRtglQplZLPn8RkP/3UqbJhulxCKS+
+      7XCfmxJYS+vtD6XfXHQJ8nbASMN0w+U01rnX+Icv4diFDk6Yv8a/ln2Qlsb1Ry9+
+      oeiLP08mB83eYUG4BPRJagJIM36ghujnLnL+DwIDAQABAoIBAF1g/rffBHCx6pYv
+      kfWwcLYzTpDIPukNGsLE2S8Oe6yxFxk7mdaZeZZkHmzm3BdATsY7ejvXrNlj6l7m
+      u2DlQb8N1DBBD60tOc86l3pb4o36ZasGl5UQkLakWqAVUC5oknKwOJ5ZvcaaQm5S
+      j0LqLrWjzncRQ87NGKE879gQOA6vUscBaIR7AbOcCFtpAmmbqNfCm4Ec6E9KLbFJ
+      cin3l0VYOYN+z4d6NwNWbH1kZPSWIm7/YN+T6eyAgharSU8z+ZetKC5pe9iYrXoC
+      wCflGLMSEYiE1scI+2J48SyBBucQD/Hob71ax3CKDtMAaf0VIR4uxAzHOZT7B5jz
+      mdcy7rECgYEA6wGZMDZk24fZUecjEZ38Dw2Gl5R4fj2SAgpdOgjgPWvX/wAntlB5
+      ys3qLQGwIsveDUj5nyTqCc7WyLkxPDZjpThmkv0OkjNJNNoE0YJvY593sZbufYZp
+      GdeDpquexx2LifHFNVh7kIGkFgdE6jYR+SbNpOQ49CONLaJ177fo1scCgYEA6NdG
+      LnIqk1tZHVvDcoBErIrmMUr4SGnZ4s7dhdRMYmimw9LnWsynXGd1iTBmbJE5luap
+      1CzysMwF7N/oX1W6khdUzx2FWCuO2ZLW3S0iZpzLGrv7tng5c4nrPiLnaWpvObWa
+      Vxytsuc22TMxz7gjEunrN2EpAbFR+8RP5D2stnkCgYBobHhmTPU5+z5cv2j8zgeP
+      pMH2ntl/ttonH/XW8NS7Vi1POQFsaIwFysPQpdxfSdlsa83Hon6ARzF3VZsEF2Ll
+      qo8hp2KPIkzYODxF4ECgst5bwiZNDqmq+vGb4MyXy5AShqTLlHqrdn+z7hz4OXh5
+      Dn34VBTenuF/sp3XHBBRRwKBgD7fysrF92s9Mo4z9k4YBvNUup468VqUgsq1M6ps
+      zoeQXN/qNqEVPGg+Y8W89RuCB7wQ43ExBgPpw/vX5qa/vpauiC85eIV7laJ4/V5S
+      TsTIuCuq8WivhEwHxSdNQ5H6tLgvqtK1Is55kx0Jrvy5a3czBVo5+VnEqS/ELhKi
+      +N15AoGBALwbGLkzRb2COPuTJ8g6Px10qI7ueGrlL/0CDB4eYRvj2k4ACVHzZJf9
+      pLAfThIu0kHfgUAnmmapC9jAN6oNaROfDw7XZa3QzwtSEDtYS5uswbTbjSBoLyV7
+      reNbcrX4jyK/B+pOH/TrCNSqCY8XFKUTdPiTWzkF7uLeVMaC+ndO
+      -----END RSA PRIVATE KEY-----
     # Jobs params
     jenkins_gerrit_url: ssh://admin@${_param:gerrit_public_host}:${_param:haproxy_gerrit_ssh_bind_port}
     jenkins_aptly_api_url: http://${_param:haproxy_aptly_api_bind_host}:${_param:haproxy_aptly_api_bind_port}
     jenkins_aptly_url: http://${_param:haproxy_aptly_public_bind_host}:${_param:haproxy_aptly_public_bind_port}
     # Gerrit
-    ### Add condition for OpenLDAP
-    gerrit_auth_type: DEVELOPMENT_BECOME_ANY_ACCOUNT
 
     gerrit_admin_email: ${_param:admin_email}
     gerrit_public_host: ${_param:control_vip_address}
     gerrit_admin_public_key: ${_param:jenkins_admin_public_key}
     gerrit_admin_private_key: ${_param:jenkins_admin_private_key}
-    gerrit_admin_password: MMMMMMMMMMMMMMMM
-    ### Add condition for OpenLDAP
-    # OpenLDAP
-    openldap_organisation: ${_param:cluster_name}
-    openldap_domain: ${_param:cluster_public_host}
-    openldap_admin_password: MMMMMMMMMMMMMMMM
-    openldap_config_password: MMMMMMMMMMMMMMMM
-    openldap_readonly_password: MMMMMMMMMMMMMMMM
-
+    gerrit_admin_password: pgZ0QfAhnsHgdiwK
+    gerrit_auth_type: DEVELOPMENT_BECOME_ANY_ACCOUNT
 
   linux:
     system:

@@ -14,11 +14,13 @@ classes:
   - system.jenkins.client.job.deploy.openstack
   - system.jenkins.client.job.deploy.update.package
   - system.jenkins.client.job.deploy.update.config
+  - system.jenkins.client.user.admin
+
   # Gerrit
   - system.gerrit.client
   - system.gerrit.client.team.mirantis
   - system.gerrit.client.project.ci
 
   - system.docker.swarm.master
-  - cluster.my
+  - cluster.my.infra
   - cluster.my.cicd.control

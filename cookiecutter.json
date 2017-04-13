@@ -19,9 +19,9 @@
     "cicd02_control_ip"                         : "172.31.110.62",
     "cicd03_control_ip"                         : "172.31.110.63",
     "cicd_hostname"                             : "ci.maas",
-    "cicd_node01_hostname"                      : "foo1",
-    "cicd_node02_hostname"                      : "foo2",
-    "cicd_node03_hostname"                      : "foo3",
+    "cicd_node01_hostname"                      : "cid01",
+    "cicd_node02_hostname"                      : "cid02",
+    "cicd_node03_hostname"                      : "cid03",
 
     "kvm_vip_ip"                                : "172.31.110.253",
     "kvm01_control_ip"                          : "172.31.110.250",

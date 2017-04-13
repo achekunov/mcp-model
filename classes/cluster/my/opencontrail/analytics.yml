@@ -26,5 +26,5 @@ parameters:
         eth1: ${_param:linux_single_interface}
   opencontrail:
       database:
-        max_heap_size: 1G
-        heap_newsize: 500M
+        max_heap_size: 256M
+        heap_newsize: 64M
