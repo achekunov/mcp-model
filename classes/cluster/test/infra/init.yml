@@ -9,6 +9,7 @@ classes:
 - cluster.test.stacklight
 - cluster.test.stacklight.client
 - cluster.test.cicd
+- cluster.test._team
 parameters:
   _param:
     salt_control_trusty_image: http://apt-mk.mirantis.com/images/ubuntu-14-04-x64-mcp1.0.qcow2

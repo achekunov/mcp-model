@@ -20,14 +20,37 @@ parameters:
   _param:
     keepalived_vip_interface: eth1
     keepalived_vip_virtual_router_id: 240
+    keepalived_vip_virtual_pub_router_id: 241
     nginx_proxy_ssl:
       enabled: true
       authority: ${_param:salt_minion_ca_authority}
       engine: salt
       mode: secure
     cluster_vip_address: ${_param:openstack_proxy_address}
+    public_vip_address: ${_param:openstack_proxy_public_address}
     salt_minion_ca_host: cfg01.${_param:cluster_domain}
+    linux_public_interface:
+      enabled: true
+      type: eth
+      proto: static
+      address: ${_param:public_address}
+      netmask: 255.255.255.0
+      name_servers:
+        - 8.8.8.8
+        - 172.18.80.136
+      mtu: 1450
+  keepalived:
+    cluster:
+      enabled: True
+      instance:
+        PUBVIP:
+          priority: ${_param:keepalived_vip_priority}
+          virtual_router_id: ${_param:keepalived_vip_virtual_pub_router_id}
+          password: ${_param:keepalived_vip_password}
+          address: ${_param:public_vip_address}
+          interface: eth2
   linux:
     network:
       interface:
         eth1: ${_param:linux_single_interface}
+        eth2: ${_param:linux_public_interface}

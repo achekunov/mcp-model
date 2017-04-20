@@ -49,11 +49,17 @@ parameters:
     control_vip_address: ${_param:cicd_control_address}
     cluster_public_host: ${_param:control_vip_address}
     salt_api_password: password
+    docker_image_gerrit: tcpcloud/gerrit:2.12.7
     # Docker images and versions
-    docker_registry_http_secret: DDDDDDDDDDDDDDDD
+    docker_registry_http_secret: 66EkJrTBY32i2Qwq
     # CI/CD service databases
-    mysql_admin_password: DDDDDDDDDDDDDDDD
-    mysql_gerrit_password: DDDDDDDDDDDDDDDD
+    mysql_admin_password: mbp3mOEQWRwXICpY
+    mysql_gerrit_password: gImJmZEDqPUaZnk1
+    aptly_gpg_keypair_id: none
+    aptly_gpg_passphrase: none
+    aptly_server_secure: false
+    aptly_gpg_public_key: none
+    aptly_gpg_private_key: none
 
     # Proxy
     cluster_ssl_certificate:
@@ -66,13 +72,39 @@ parameters:
     # Jenkins
     jenkins_slave_user: admin
     jenkins_client_user: admin
-    jenkins_admin_password: DDDDDDDDDDDDDDDD
+    jenkins_admin_password: Hym9Os1NWzhVrxiM
     jenkins_slave_password: ${_param:jenkins_admin_password}
     jenkins_client_password: ${_param:jenkins_admin_password}
     jenkins_admin_email: ${_param:admin_email}
-    jenkins_admin_public_key: <<WILL_BE_GENERATED>>
+    jenkins_admin_public_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDMpnHYEy6HNwkcGv9uPjqw+9dj04Cl3J2iLBoSQ14vAYJW/KJAjpbKJuKoGDYzwdFBQ+xZmlf72Hu14+F5FCkb6UWMi7jKWx9mwLvckmm2laWCGOMS+dQlo7PVM3LsN5Q5oXFa6bFLa+TYrfKvzEdVhmpfQFl2PRldd+ftve9ozcDfPeeMRApqlDn+q9pkSD4ySghsZM8NTzwjG/aiYuLX5rc0nwd+pJfxBa8yAiEsts9UmK+vwAIplpHVg5A2bov6xkVA8U91/w9yd/JUErCDrJdDHjanVKJ85FQ3XYNDquJ5TA2Gdn0gJ5PnWtje+mvWqKdVcGcC7tI4P7eL+2+V
     jenkins_admin_private_key: |
-      <<WILL_BE_GENERATED>>
+      -----BEGIN RSA PRIVATE KEY-----
+      MIIEowIBAAKCAQEAzKZx2BMuhzcJHBr/bj46sPvXY9OApdydoiwaEkNeLwGCVvyi
+      QI6WyibiqBg2M8HRQUPsWZpX+9h7tePheRQpG+lFjIu4ylsfZsC73JJptpWlghjj
+      EvnUJaOz1TNy7DeUOaFxWumxS2vk2K3yr8xHVYZqX0BZdj0ZXXfn7b3vaM3A3z3n
+      jEQKapQ5/qvaZEg+MkoIbGTPDU88Ixv2omLi1+a3NJ8HfqSX8QWvMgIhLLbPVJiv
+      r8ACKZaR1YOQNm6L+sZFQPFPdf8PcnfyVBKwg6yXQx42p1SifORUN12DQ6rieUwN
+      hnZ9ICeT51rY3vpr1qinVXBnAu7SOD+3i/tvlQIDAQABAoIBADqP/s/4XT4wT5kN
+      WL7xa9Ytmytj4NKV2T4JJMTJJnCJHAVMchnLM/dRPVcg5pHVCs6EY2QYuMjG4E/i
+      kCkXzdPA4zge25h8jvXWfWvXMg0fsacS/Bf4Ce9jcxi1ilNybCY5vrhnW2bbzzb6
+      QBJygI9G0bXEMlWVkmae422zBomUo7Cmxp45RQKtp3Y+0UW2TBBet/g/T4sNH14x
+      tKJxIy4oSItqDMSsH0Ka7mhADLt/gG/AAO4cbjsfJnDPIMSL8wFxMykWV67qnES0
+      ze0cAjHPJEqnTYEAC9zNOH+wxuTORx524ppB0KPYp+CnwRAJTBuo9WqHVwIMDfXK
+      rKfEdlkCgYEA/ynawVsQAkCPdoeBrYICszU+SIA9RZTj3gZpFHHj2MGOLMj4fDEh
+      MzS+xTTzxL/G7YMr4bkh4dMQ9fBYTvcbWXTs5uMSeMNpeNVyNdS537rIMK5CqwOb
+      mnoUgkn67bi2j51ZIetdI8I/U29mYLtIskopeLpowmNsy5fGpx+Tw0sCgYEAzVIy
+      bVoS+yRwro3uCcSMAmuoganSvlHjiktQXuzLE9DmW+dsqfOnbnjQYyIt01OuOXbH
+      u/9xz/hsonmqBLnQZ7aUCyZY6uIOddWaN4skTFnQakUXDyTAsOjjdXlkyZx3LXlk
+      jyZM4X5SrJ3agpI6/dCuA/73yZ/EM/nD6r4E7J8CgYAcVB1BUkbYuSo0Up8HEGQU
+      WVjs26/xxbH2uGd6KZrOOc77EeTkhN/Wu4hihJp7wX7oZ6O7j74/QBul8mUbfzu+
+      FskmaRdn6OoQzEG90DxCpo4LOY2VRvVDlUIppOUC93rtPt7icSsKCUrWjIulOaW8
+      hZdNHAT9b+RoRhV8AHl7OQKBgQDLrSKA/72cjMWLIxhjcCpDrHB4T/LTAYDrC1Mr
+      F1NM0QnzWVueLCqHmCmAbcNvw68tKftxLzHD0PhTJMXX8kwe1it99Ah42M7nbYGS
+      X+EeLGpnQSpix16vIBejzUyCA0jmP2nV53SUrC9vNRgyNsV2S7CUHjXIOUj1FmuX
+      TfCsmQKBgATOICr7tCIlZAbF0DcXldxWUgR4ADTMABWz5iVNp4a6BhLFCjcMs8xt
+      xGkVgM5U7BkFrXxJrSKbi9qKMBTy3sB58h5s+2vA45wv4xWYsXh0G5WeJ0cMcqK+
+      iBrqMFYvqZGU+vFvdjL46sM5Jrqz6/nBp98txjbcDP0TU2JTTkeu
+      -----END RSA PRIVATE KEY-----
     # Jobs params
     jenkins_gerrit_url: ssh://admin@${_param:gerrit_public_host}:${_param:haproxy_gerrit_ssh_bind_port}
     jenkins_aptly_api_url: http://${_param:haproxy_aptly_api_bind_host}:${_param:haproxy_aptly_api_bind_port}
@@ -83,7 +115,7 @@ parameters:
     gerrit_public_host: ${_param:control_vip_address}
     gerrit_admin_public_key: ${_param:jenkins_admin_public_key}
     gerrit_admin_private_key: ${_param:jenkins_admin_private_key}
-    gerrit_admin_password: DDDDDDDDDDDDDDDD
+    gerrit_admin_password: pgZ0QfAhnsHgdiwK
     gerrit_auth_type: DEVELOPMENT_BECOME_ANY_ACCOUNT
 
   linux:

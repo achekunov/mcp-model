@@ -28,7 +28,7 @@ parameters:
     single_address: ${_param:infra_config_address}
     deploy_address: ${_param:infra_config_deploy_address}
     linux_system_codename: xenial
-    salt_api_password_hash: "$6$Qr0XdRvdciun2ucl$osj7gvaoxoOsV9BSiZLD0cqYysOCxA/i8CYTgSpCTnqGF25n8.m/QgP5xrOxE46RtJkY4Ta1AaGODHuiA/iwt1"
+    salt_api_password_hash: "$6$2Mx2UqIssFNzpxqT$96KLOvVp3mKnOa8HmfAmwnKo5bdfHPZ26.qV.pIv1u.s5S/tMquGt1ZR9EuX9Tmmf.TRe6HnUmHtHDf2y1KHh0"
     salt_master_host: ${_param:infra_config_address}
   reclass:
     storage:
@@ -70,6 +70,12 @@ parameters:
           params:
             linux_system_codename: xenial
             keepalived_vip_priority: 102
+        openstack_proxy_node01:
+          params:
+            public_address: ${_param:openstack_proxy_node01_public_address}
+        openstack_proxy_node02:
+          params:
+            public_address: ${_param:openstack_proxy_node02_public_address}
         stacklight_log_node01:
           classes:
           - system.elasticsearch.client.single

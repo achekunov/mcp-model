@@ -1,5 +1,5 @@
 classes:
-- system.linux.system.repo.mcp10
+- system.linux.system.repo.mcp.openstack
 - system.linux.system.repo.ubuntu
 - service.keepalived.cluster.single
 - system.glusterfs.server.cluster
@@ -25,7 +25,7 @@ parameters:
     cluster_node01_address: ${_param:infra_kvm_node01_address}
     cluster_node02_address: ${_param:infra_kvm_node02_address}
     cluster_node03_address: ${_param:infra_kvm_node03_address}
-    keepalived_vip_interface: br-ctl
+    keepalived_vip_interface: br-ctrl
     keepalived_vip_virtual_router_id: 69
     deploy_nic: ens3
     primary_first_nic: ens4
@@ -89,8 +89,8 @@ parameters:
           disk_profile: xxlarge
           net_profile: newdefault
         cicd.control:
-          cpu: 2
-          ram: 2048
+          cpu: 4
+          ram: 4096
           disk_profile: xxlarge
           net_profile: newdefault
       #        openstack.control:
@@ -147,7 +147,7 @@ parameters:
         internal:
           node:
             prx02:
-              provider: ${_param:infra_compute_node03_address}.${_param:cluster_domain}
+              provider: kvm03.${_param:cluster_domain}
             mdb01:
               image: ${_param:salt_control_xenial_image}
             mdb02:

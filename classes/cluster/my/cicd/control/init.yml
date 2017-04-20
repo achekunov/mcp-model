@@ -57,7 +57,11 @@ parameters:
     mysql_gerrit_password: gImJmZEDqPUaZnk1
     admin_email: root@localhost
     glusterfs_service_host: ${_param:infra_kvm_address} 
-    aptly_gpg_passphrase: gImJmZEDqPUaZnk1
+    aptly_gpg_keypair_id: none
+    aptly_gpg_passphrase: none
+    aptly_server_secure: false
+    aptly_gpg_public_key: none
+    aptly_gpg_private_key: none
 
     # Proxy
     cluster_ssl_certificate:
@@ -74,35 +78,35 @@ parameters:
     jenkins_slave_password: ${_param:jenkins_admin_password}
     jenkins_client_password: ${_param:jenkins_admin_password}
     jenkins_admin_email: ${_param:admin_email}
-    jenkins_admin_public_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDVvxGYa8OW8Tao0HE1dsWJxwznNn6sw9mNEHXq8vYKd92vmwagmTiEYhN7wD02qX4a04nupyfqMJ73fR5xJk0z1EmyBk/dx9JClLgOsaMdr1Px+3aWDiAXpoa24s8PvA2n4UVz38/vMMjK1aixH5GOBStGaSh++bD2Ha1WT713bmpecLB61HZJmZmFqzlvwQS7A55oZiO58YEly6qEBJG2CVCmVks+fxGQ//dSpsmG6XEIpL7tcJ+bElhL6+0Ppd9cdAnydsBIw3TD5TTWudf4hy/h2IUOTpi/xr+WfZCWxvVHL36h6Is/TyYHzd5hQbgE9ElqAkgzfqCG6Ocucv4P
+    jenkins_admin_public_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDMpnHYEy6HNwkcGv9uPjqw+9dj04Cl3J2iLBoSQ14vAYJW/KJAjpbKJuKoGDYzwdFBQ+xZmlf72Hu14+F5FCkb6UWMi7jKWx9mwLvckmm2laWCGOMS+dQlo7PVM3LsN5Q5oXFa6bFLa+TYrfKvzEdVhmpfQFl2PRldd+ftve9ozcDfPeeMRApqlDn+q9pkSD4ySghsZM8NTzwjG/aiYuLX5rc0nwd+pJfxBa8yAiEsts9UmK+vwAIplpHVg5A2bov6xkVA8U91/w9yd/JUErCDrJdDHjanVKJ85FQ3XYNDquJ5TA2Gdn0gJ5PnWtje+mvWqKdVcGcC7tI4P7eL+2+V 
     jenkins_admin_private_key: |
-      -----BEGIN RSA PRIVATE KEY-----
-      MIIEowIBAAKCAQEA1b8RmGvDlvE2qNBxNXbFiccM5zZ+rMPZjRB16vL2Cnfdr5sG
-      oJk4hGITe8A9Nql+GtOJ7qcn6jCe930ecSZNM9RJsgZP3cfSQpS4DrGjHa9T8ft2
-      lg4gF6aGtuLPD7wNp+FFc9/P7zDIytWosR+RjgUrRmkofvmw9h2tVk+9d25qXnCw
-      etR2SZmZhas5b8EEuwOeaGYjufGBJcuqhASRtglQplZLPn8RkP/3UqbJhulxCKS+
-      7XCfmxJYS+vtD6XfXHQJ8nbASMN0w+U01rnX+Icv4diFDk6Yv8a/ln2Qlsb1Ry9+
-      oeiLP08mB83eYUG4BPRJagJIM36ghujnLnL+DwIDAQABAoIBAF1g/rffBHCx6pYv
-      kfWwcLYzTpDIPukNGsLE2S8Oe6yxFxk7mdaZeZZkHmzm3BdATsY7ejvXrNlj6l7m
-      u2DlQb8N1DBBD60tOc86l3pb4o36ZasGl5UQkLakWqAVUC5oknKwOJ5ZvcaaQm5S
-      j0LqLrWjzncRQ87NGKE879gQOA6vUscBaIR7AbOcCFtpAmmbqNfCm4Ec6E9KLbFJ
-      cin3l0VYOYN+z4d6NwNWbH1kZPSWIm7/YN+T6eyAgharSU8z+ZetKC5pe9iYrXoC
-      wCflGLMSEYiE1scI+2J48SyBBucQD/Hob71ax3CKDtMAaf0VIR4uxAzHOZT7B5jz
-      mdcy7rECgYEA6wGZMDZk24fZUecjEZ38Dw2Gl5R4fj2SAgpdOgjgPWvX/wAntlB5
-      ys3qLQGwIsveDUj5nyTqCc7WyLkxPDZjpThmkv0OkjNJNNoE0YJvY593sZbufYZp
-      GdeDpquexx2LifHFNVh7kIGkFgdE6jYR+SbNpOQ49CONLaJ177fo1scCgYEA6NdG
-      LnIqk1tZHVvDcoBErIrmMUr4SGnZ4s7dhdRMYmimw9LnWsynXGd1iTBmbJE5luap
-      1CzysMwF7N/oX1W6khdUzx2FWCuO2ZLW3S0iZpzLGrv7tng5c4nrPiLnaWpvObWa
-      Vxytsuc22TMxz7gjEunrN2EpAbFR+8RP5D2stnkCgYBobHhmTPU5+z5cv2j8zgeP
-      pMH2ntl/ttonH/XW8NS7Vi1POQFsaIwFysPQpdxfSdlsa83Hon6ARzF3VZsEF2Ll
-      qo8hp2KPIkzYODxF4ECgst5bwiZNDqmq+vGb4MyXy5AShqTLlHqrdn+z7hz4OXh5
-      Dn34VBTenuF/sp3XHBBRRwKBgD7fysrF92s9Mo4z9k4YBvNUup468VqUgsq1M6ps
-      zoeQXN/qNqEVPGg+Y8W89RuCB7wQ43ExBgPpw/vX5qa/vpauiC85eIV7laJ4/V5S
-      TsTIuCuq8WivhEwHxSdNQ5H6tLgvqtK1Is55kx0Jrvy5a3czBVo5+VnEqS/ELhKi
-      +N15AoGBALwbGLkzRb2COPuTJ8g6Px10qI7ueGrlL/0CDB4eYRvj2k4ACVHzZJf9
-      pLAfThIu0kHfgUAnmmapC9jAN6oNaROfDw7XZa3QzwtSEDtYS5uswbTbjSBoLyV7
-      reNbcrX4jyK/B+pOH/TrCNSqCY8XFKUTdPiTWzkF7uLeVMaC+ndO
-      -----END RSA PRIVATE KEY-----
+    -----BEGIN RSA PRIVATE KEY-----
+    MIIEowIBAAKCAQEAzKZx2BMuhzcJHBr/bj46sPvXY9OApdydoiwaEkNeLwGCVvyi
+    QI6WyibiqBg2M8HRQUPsWZpX+9h7tePheRQpG+lFjIu4ylsfZsC73JJptpWlghjj
+    EvnUJaOz1TNy7DeUOaFxWumxS2vk2K3yr8xHVYZqX0BZdj0ZXXfn7b3vaM3A3z3n
+    jEQKapQ5/qvaZEg+MkoIbGTPDU88Ixv2omLi1+a3NJ8HfqSX8QWvMgIhLLbPVJiv
+    r8ACKZaR1YOQNm6L+sZFQPFPdf8PcnfyVBKwg6yXQx42p1SifORUN12DQ6rieUwN
+    hnZ9ICeT51rY3vpr1qinVXBnAu7SOD+3i/tvlQIDAQABAoIBADqP/s/4XT4wT5kN
+    WL7xa9Ytmytj4NKV2T4JJMTJJnCJHAVMchnLM/dRPVcg5pHVCs6EY2QYuMjG4E/i
+    kCkXzdPA4zge25h8jvXWfWvXMg0fsacS/Bf4Ce9jcxi1ilNybCY5vrhnW2bbzzb6
+    QBJygI9G0bXEMlWVkmae422zBomUo7Cmxp45RQKtp3Y+0UW2TBBet/g/T4sNH14x
+    tKJxIy4oSItqDMSsH0Ka7mhADLt/gG/AAO4cbjsfJnDPIMSL8wFxMykWV67qnES0
+    ze0cAjHPJEqnTYEAC9zNOH+wxuTORx524ppB0KPYp+CnwRAJTBuo9WqHVwIMDfXK
+    rKfEdlkCgYEA/ynawVsQAkCPdoeBrYICszU+SIA9RZTj3gZpFHHj2MGOLMj4fDEh
+    MzS+xTTzxL/G7YMr4bkh4dMQ9fBYTvcbWXTs5uMSeMNpeNVyNdS537rIMK5CqwOb
+    mnoUgkn67bi2j51ZIetdI8I/U29mYLtIskopeLpowmNsy5fGpx+Tw0sCgYEAzVIy
+    bVoS+yRwro3uCcSMAmuoganSvlHjiktQXuzLE9DmW+dsqfOnbnjQYyIt01OuOXbH
+    u/9xz/hsonmqBLnQZ7aUCyZY6uIOddWaN4skTFnQakUXDyTAsOjjdXlkyZx3LXlk
+    jyZM4X5SrJ3agpI6/dCuA/73yZ/EM/nD6r4E7J8CgYAcVB1BUkbYuSo0Up8HEGQU
+    WVjs26/xxbH2uGd6KZrOOc77EeTkhN/Wu4hihJp7wX7oZ6O7j74/QBul8mUbfzu+
+    FskmaRdn6OoQzEG90DxCpo4LOY2VRvVDlUIppOUC93rtPt7icSsKCUrWjIulOaW8
+    hZdNHAT9b+RoRhV8AHl7OQKBgQDLrSKA/72cjMWLIxhjcCpDrHB4T/LTAYDrC1Mr
+    F1NM0QnzWVueLCqHmCmAbcNvw68tKftxLzHD0PhTJMXX8kwe1it99Ah42M7nbYGS
+    X+EeLGpnQSpix16vIBejzUyCA0jmP2nV53SUrC9vNRgyNsV2S7CUHjXIOUj1FmuX
+    TfCsmQKBgATOICr7tCIlZAbF0DcXldxWUgR4ADTMABWz5iVNp4a6BhLFCjcMs8xt
+    xGkVgM5U7BkFrXxJrSKbi9qKMBTy3sB58h5s+2vA45wv4xWYsXh0G5WeJ0cMcqK+
+    iBrqMFYvqZGU+vFvdjL46sM5Jrqz6/nBp98txjbcDP0TU2JTTkeu
+    -----END RSA PRIVATE KEY-----
     # Jobs params
     jenkins_gerrit_url: ssh://admin@${_param:gerrit_public_host}:${_param:haproxy_gerrit_ssh_bind_port}
     jenkins_aptly_api_url: http://${_param:haproxy_aptly_api_bind_host}:${_param:haproxy_aptly_api_bind_port}
