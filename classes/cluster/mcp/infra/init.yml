@@ -1,9 +1,10 @@
 
 classes:
 - system.linux.system.single
-- system.openssh.server.team.lab
-- system.openssh.server.team.tcpcloud
-- system.openssh.server.team.mcp_qa
+#- system.openssh.server.team.lab
+#- system.openssh.server.team.tcpcloud
+#- system.openssh.server.team.mcp_qa
+- cluster.test._team
 - cluster.mcp.openstack
 - cluster.mcp.opencontrail
 - cluster.mcp.stacklight

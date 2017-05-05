@@ -33,3 +33,9 @@ parameters:
     network:
       interface:
         eth1: ${_param:linux_single_interface}
+  glance:
+    server:
+      workers: 1
+  nova:
+    controller:
+      workers: 1
