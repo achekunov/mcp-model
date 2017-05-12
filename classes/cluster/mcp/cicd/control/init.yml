@@ -72,8 +72,8 @@ parameters:
     aptly_gpg_private_key: none
     # OpenLDAP
     openldap_organisation: "${_param:cluster_name}"
-    openldap_dn: "dc=${_param:cluster_name},dc=local"
-    openldap_domain: "${_param:cluster_public_host}"
+    openldap_dn: "dc=mcp,dc=local"
+    openldap_domain: "${_param:cluster_domain}"
     openldap_admin_password: o2MEy6lGkDpJJb9Z
     openldap_config_password: jYdk9crFYpdikVfo
     openldap_readonly_password: KrrA9ADfRX6cy8Gx

@@ -2,6 +2,7 @@ classes:
 - system.linux.system.repo.mcp.salt
 - system.linux.system.repo.ubuntu
 - system.linux.system.repo.glusterfs
+- system.linux.system.repo.mcp.extra
 - system.openssh.client.lab
 - system.glusterfs.client.cluster
 - system.glusterfs.client.volume.salt_pki
@@ -31,7 +32,7 @@ parameters:
     single_address: ${_param:infra_config_address}
     deploy_address: ${_param:infra_config_deploy_address}
     linux_system_codename: xenial
-    salt_api_password_hash: "$6$BASTVcDf$k6Ntdj4AU95qkIKHAJAFtFzWZU8pqQiSASRbPxf4/CAtxQCbpnd5FrW8nBnDjIkLzqt2tzu5DbTFkJYCqAEAw."
+    salt_api_password_hash: "$6$IazdJGSVLgG.y9jN$P4LEpt0wM5.2fPSZ/0/9ydNrg8qxce2kJSq2.sJEEaDB6uU8z/jQ3lYbiW1PD49NNzJvjjBLLOfL77k8WdiLl0"
     salt_master_host: ${_param:infra_config_address}
   reclass:
     storage:
